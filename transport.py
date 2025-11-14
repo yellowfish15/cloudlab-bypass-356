@@ -403,6 +403,7 @@ def start_sender(ip: str, port: int, data: str, recv_window: int, simloss: float
                 try:
                     rto = sender.get_rto()
                     client_socket.settimeout(rto)
+                    print(f"Debug - Setting timeout to {rto}")
                     received_bytes = client_socket.recv(packet_size)
                     received = json.loads(received_bytes.decode())
                     assert received["type"] == "ack"
