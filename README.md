@@ -58,3 +58,34 @@ echo 1 > 12mbps
 For 6 Mbit/s, put 2 in the file.
 
 For 24 Mbit/s, put 1 twice.
+
+## Running the Code
+
+### Running Without Emulator (Like Assignment 3)
+Added files from previous assignment:
+`test_file.txt`
+`generate_bogus_text.py`
+
+python3 generate_bogus_text.py 1000000 >test_file.txt 
+python3 transport.py --ip localhost --port 7000 receiver
+python3 transport.py --ip localhost --port 7000 --sendfile test_file.txt sender
+
+### Running With Emulator (Change `localhost`)
+Find out the host `ip address` by running `ip addr` (check for anything that is not `lo` - that's localhost).
+
+Or, you can run `hostname -I` and get the first IP address that is not `127.0.0.1` - that's loopback or localhost.
+
+// For the receiver:
+// This should be done outside of the mahimahi shell
+`python3 transport.py --ip 0.0.0.0 --port 7000 receiver`
+
+// For the sender:
+To start the mahimahi shell, run
+```
+mm-delay 10 mm-link --uplink-queue=droptail \
+--uplink-queue-args=bytes=30000 --downlink-queue=infinite 12mbps 12mbps
+```
+// This should be done inside the mahimahi shell
+`python3 transport.py --ip 128.105.145.101 --port 7000 --sendfile test_file.txt sender`
+
+// Replace `<128.105.145.101>` with the actual host IP obtained above.
