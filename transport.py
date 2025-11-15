@@ -311,7 +311,7 @@ def start_receiver(ip: str, port: int):
             data, addr = server_socket.recvfrom(packet_size)
             if addr not in receivers:
                 receivers[addr] = Receiver()
-            print(f"DEBUG - Received packet: data: {data} form address {addr}")
+            # print(f"DEBUG - Received packet: data: {data} form address {addr}")
             received = json.loads(data.decode())
             if received["type"] == "data":
                 # Format check. Real code will have much more
@@ -367,12 +367,12 @@ def start_sender(ip: str, port: int, data: str, recv_window: int, simloss: float
             # Get the congestion condow
             cwnd = sender.get_cwnd()
 
-            print(f"DEBUG - cwnd: {cwnd}, inflight: {inflight}, packet_size: {packet_size}, recv_window: {recv_window}, wait: {wait}")
+            # print(f"DEBUG - cwnd: {cwnd}, inflight: {inflight}, packet_size: {packet_size}, recv_window: {recv_window}, wait: {wait}")
             # Do we have enough room in recv_window to send an entire
             # packet?
             if inflight + packet_size <= min(recv_window, cwnd) and not wait:
                 seq = sender.send(packet_id)
-                print(f"DEBUG - Sending packet: {seq}")
+                # print(f"DEBUG - Sending packet: {seq}")
                 if seq is None:
                     # We are done sending
                     client_socket.send('{"type": "fin"}'.encode())
@@ -404,7 +404,7 @@ def start_sender(ip: str, port: int, data: str, recv_window: int, simloss: float
                 try:
                     rto = sender.get_rto()
                     client_socket.settimeout(rto)
-                    print(f"DEBUG - Setting timeout to {rto}")
+                    # print(f"DEBUG - Setting timeout to {rto}")
                     received_bytes = client_socket.recv(packet_size)
                     received = json.loads(received_bytes.decode())
                     assert received["type"] == "ack"
