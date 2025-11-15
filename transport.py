@@ -367,7 +367,7 @@ def start_sender(ip: str, port: int, data: str, recv_window: int, simloss: float
             # Get the congestion condow
             cwnd = sender.get_cwnd()
 
-            # print(f"DEBUG - cwnd: {cwnd}, inflight: {inflight}, packet_size: {packet_size}, recv_window: {recv_window}, wait: {wait}")
+            print(f"DEBUG - cwnd: {cwnd}, inflight: {inflight}, packet_size: {packet_size}, recv_window: {recv_window}, wait: {wait}")
             # Do we have enough room in recv_window to send an entire
             # packet?
             if inflight + packet_size <= min(recv_window, cwnd) and not wait:
