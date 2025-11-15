@@ -121,7 +121,7 @@ def main():
             return
         with open(args.sendfile, 'r') as f:
             data = f.read()
-        for const_cwnd_pkts in range(1, 200):
+        for const_cwnd_pkts in range(200, 201):
             start_sender(args.ip, args.port, data, args.recv_window, args.simloss, const_cwnd_pkts)
 
 if __name__ == "__main__":

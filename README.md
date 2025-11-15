@@ -109,4 +109,7 @@ xvfb-run -a mm-delay 10 mm-link --meter-uplink --meter-uplink-delay \
 // For the sender (this should be done inside the mahi mahi shell):
 `python3 transport.py --ip 10.0.0.1 --port 7000 --sendfile test_file.txt sender`
 
+// For running the `goodput_sender.py`, run
+`python3 goodput_sender.py --ip 10.0.0.1 --port 7000 --sendfile test_file.txt sender`
+
 // Make sure to use `10.0.0.1` with the actual host IP obtained above inside the shell.
